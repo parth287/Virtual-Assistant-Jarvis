@@ -6,24 +6,27 @@ import webbrowser
 import os
 import smtplib
 
-# engine = pyttsx3.init('sapi5')
-# voices = engine.getProperty('voices')
-# engine.setProperty('voice', voices[0].id)
+# Declaring the engine and setting the properties
+engine = pyttsx3.init('sapi5')
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[0].id)
 
+# Speak function which makes the VA speak
 def speak(audio):
-    # engine.say(audio)
-    # engine.runAndWait
-    pass
-
+    engine.say(audio)
+    engine.runAndWait
+    
+# Gretting fucntion whenever the VA is started
 def wishme():
     hour = int(datetime.datetime.now().hour)
     if hour>=0 and hour<12:
-        speak("Good Morning!")
+        speak("A very Good Morning! from Jarvis. How may I help you ?")
     elif hour>=12 and hour<18:
-        speak("Good Afternoon!")
+        speak("A very Good Afternoon! from Jarvis. How may I help you ?")
     else:    
-        speak("Good Afternoon!")
-   
+        speak("A very Good Evening! from Jarvis. How may I help you ?")
+
+# Taking the user commands and recognising them    
 def takeCommand():
     r = sr.Recognizer()
     with sr.Microphone as source:
@@ -38,14 +41,16 @@ def takeCommand():
         print("Say that again")
         return "NONE"
 
+# Method to send a mail 
 def sendEmail(email,content):
     server = smtplib.SMTP("smtp@gmail.com",587)
     server.ehlo()
     server.starttls()
-    server.login("king9699018047@gmail.com","pass")
-    server.sendmail("king9699018047@gmail.com",email,content)
+    server.login("sender@gmail.com","pass") # Put the email-id and pass at the respective positions.
+    server.sendmail("receivers.mail.com",email,content)
     server.close()
 
+# Main function containing the basic tasks using if-else can be modified acc to needs.
 if __name__ == "__main__":
     wishme()
     while True:
